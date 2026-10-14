@@ -11,8 +11,7 @@ public class ChangeBase {
 
     public static final char[] hexDigits = {
         '0', '1', '2', '3', '4', '5', '6', '7',
-        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'
-    };
+        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 
     //display menu
     public static int menu() {
@@ -25,7 +24,7 @@ public class ChangeBase {
         return choice;
     }
 
-    //display choose conver
+    //display choose convert
     public static int displayConvert(String from, String toCase1, String toCase2) {
         System.out.println("1. Convert form " + from + " to " + toCase1);
         System.out.println("2. Convert form " + from + " to " + toCase2);
@@ -39,13 +38,10 @@ public class ChangeBase {
         int choice = displayConvert("binary", "decimal", "hexadecimal");
         switch (choice) {
             case 1:
-                System.out.println("Decimal: "
-                        + convertBinaryToDecimal(binary)
-                );
+                System.out.println("Decimal: "+ convertBinaryToDecimal(binary));
                 break;
             case 2:
-                System.out.println("Hexadecimal: "
-                        + convertBinaryToHexa(binary));
+                System.out.println("Hexadecimal: "+ convertBinaryToHexa(binary));
                 break;
         }
     }

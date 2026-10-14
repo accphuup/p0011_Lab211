@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Unitity {
 
-    private final static Scanner in = new Scanner(System.in);
+    private final static Scanner scanner = new Scanner(System.in);
     private static final String BINARY_VALID = "[0-1]*";
     private static final String DECIMAL_VALID = "[0-9]*";
     private static final String HEXADECIMAL_VALID = "[0-9A-F]*";
@@ -21,7 +21,7 @@ public class Unitity {
         //loop until user input correct
         while (true) {
             try {
-                int result = Integer.parseInt(in.nextLine().trim());
+                int result = Integer.parseInt(scanner.nextLine().trim());
                 if (result < min || result > max) {
                     throw new NumberFormatException();
 
@@ -39,7 +39,7 @@ public class Unitity {
         String result;
         //loop until user input correct
         while (true) {
-            result = in.nextLine().trim();
+            result = scanner.nextLine().trim();
             if (result.matches(BINARY_VALID)) {
                 return result;
             }
@@ -54,7 +54,7 @@ public class Unitity {
         String result;
         //loop until user input correct
         while (true) {
-            result = in.nextLine().trim();
+            result = scanner.nextLine().trim();
             if (result.matches(DECIMAL_VALID)) {
                 return result;
             }
@@ -69,7 +69,7 @@ public class Unitity {
         String result;
         //loop until user input correct
         while (true) {
-            result = in.nextLine().trim();
+            result = scanner.nextLine().trim();
             if (result.matches(HEXADECIMAL_VALID)) {
                 return result;
             }
