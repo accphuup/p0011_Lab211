@@ -1,116 +1,84 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author Admin
- */
 public class ChangeBase {
 
-    public static final char[] hexDigits = {
-        '0', '1', '2', '3', '4', '5', '6', '7',
-        '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
-
-    //display menu
-    public static int menu() {
-        System.out.println("1. Convert From Binary.");
-        System.out.println("2. Convert From Decimal.");
-        System.out.println("3. Convert From Hexa.");
-        System.out.println("4. Exit");
-        System.out.print("Enter your choice: ");
-        int choice = Unitity.checkInputIntLimit(1, 4);
-        return choice;
-    }
-
-    //display choose convert
-    public static int displayConvert(String from, String toCase1, String toCase2) {
-        System.out.println("1. Convert form " + from + " to " + toCase1);
-        System.out.println("2. Convert form " + from + " to " + toCase2);
-        System.out.print("Enter your choice: ");
-        int result = Unitity.checkInputIntLimit(1, 2);
-        return result;
-    }
-
-    //allow user convert from binary
-    public static void convertFromBinary(String binary) {
-        int choice = displayConvert("binary", "decimal", "hexadecimal");
-        switch (choice) {
-            case 1:
-                System.out.println("Decimal: "+ convertBinaryToDecimal(binary));
-                break;
-            case 2:
-                System.out.println("Hexadecimal: "+ convertBinaryToHexa(binary));
-                break;
+    /**
+     * Keep the digits 0-9 and A-F to convert between bases.
+     */
+    private static final String HEX_DIGITS = "0123456789ABCDEF";
+    
+    /**
+     * Keep decimal use in ChangeBase class.
+     */
+    private int decimal;
+    
+    /**
+     * Keep the base want to convert to.
+     */
+    private int outBase;
+    
+    /**
+     * Keep the final result after changing base. 
+     */
+    private String resultChange;
+    
+    /**
+     * Method to change from base 2 and 16 to decimal base.
+     * @param input is input from user enter.
+     * @param inBase is input from user enter.
+     * @param outBaseInput is input from user enter.
+     */
+    public void changeToDecimal(String input, int inBase, int outBaseInput){
+        outBase = outBaseInput;
+        
+        // Check if base 10 return value decimal.
+        if (inBase == 10) {
+            decimal = Integer.parseInt(input);
+            return;
         }
-    }
-
-    //allow user convert from binary
-    public static void convertFromDecimal(String decimal) {
-        int choice = displayConvert("decimal", "binary", "hexadecimal");
-        switch (choice) {
-            case 1:
-                System.out.println("Binary: " + convertDecimalToBinary(decimal));
-                break;
-            case 2:
-                System.out.println("Hexadecimal: " + convertDecimalToHexa(decimal));
-                break;
+        
+        int exponent = 0;
+        
+        if (inBase == 2 || inBase == 16) {
+            for (int i = input.length() - 1; i >= 0; i--) {
+                char character = input.charAt(i);
+                
+                //Get the number value of the character following index in HEX_DIGITS.
+                int digitalValue = HEX_DIGITS.indexOf(Character.toUpperCase(character));
+                
+                //Use formula decimal + digitalValue * (inBase ^ exponent) to change to decimal.
+                decimal += digitalValue * Math.pow(inBase, exponent);
+                exponent++;
+            }
         }
+        
     }
-
-    //allow user convert from binary
-    public static void convertFromHexa(String hexa) {
-        int choice = displayConvert("hexa", "binary", "decimal");
-        switch (choice) {
-            case 1:
-                System.out.println("Binary: " + convertHexaToBinary(hexa) );
-                break;
-            case 2:
-                System.out.println("Decimal: " + convertHexaToDecimal(hexa));
-                break;
+    
+    public void changeFromDecimal(){
+        
+        //check if decimal =0 return 0.
+        if (decimal==0) {
+            resultChange = "0";
+            return;
         }
-    }
-
-    //allow user convert from binary to decimal
-    public static String convertBinaryToDecimal(String binary) {
-        int decimal = Integer.parseInt(binary, 2);
-        return Integer.toString(decimal);
-    }
-
-    //allow user convert from binary to decimal
-    public static String convertBinaryToHexa(String binary) {
-        String decimal = convertBinaryToDecimal(binary);
-        String hexa = convertDecimalToHexa(decimal);
-        return hexa;
-    }
-
-    //allow user convert from hexa to decimal
-    public static int convertHexaToDecimal(String hexadecimal) {
-        int decimal = Integer.parseInt(hexadecimal, 16);
-        return decimal;
-    }
-
-    //allow user convert from binary to decimal
-    public static String convertHexaToBinary(String hexadecimal) {
-        String binary = Integer.toBinaryString(convertHexaToDecimal(hexadecimal));
-        return binary;
-    }
-
-    //allow user convert from binary to decimal
-    public static String convertDecimalToBinary(String decimal) {
-        String binary = Integer.toBinaryString(Integer.parseInt(decimal));
-        return binary;
-    }
-
-    //allow user convert from decimal to hexa
-    public static String convertDecimalToHexa(String decimal) {
-        String hexa = "";
-        int deci = Integer.parseInt(decimal);
-        while (deci != 0) {
-            hexa = hexDigits[deci % 16] + hexa;
-            deci /= 16;
+        
+        if (outBase == 10) {
+            resultChange = String.valueOf(decimal);
+            return;
         }
-        return hexa;
+        
+        String  result ="";
+        while (decimal >0) {            
+            int remainder = decimal % outBase;
+            
+            result = HEX_DIGITS.charAt(remainder) + result;
+            
+            decimal /= outBase;
+        }
+        resultChange = result;
     }
+    
+    public void displayResult(){
+        System.out.println("The value of change: " + resultChange);
+    }
+    
 }

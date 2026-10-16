@@ -1,80 +1,48 @@
 
 import java.util.Scanner;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-/**
- *
- * @author Admin
- */
 public class Unitity {
 
     private final static Scanner scanner = new Scanner(System.in);
-    private static final String BINARY_VALID = "[0-1]*";
-    private static final String DECIMAL_VALID = "[0-9]*";
-    private static final String HEXADECIMAL_VALID = "[0-9A-F]*";
 
-    //check user input number limit
-    public static int checkInputIntLimit(int min, int max) {
-        //loop until user input correct
+    public static String checkUserInputValue(String message, int base) {
+        String checkFormat;
+        if (base == 2) {
+            checkFormat = "[01]+";
+        } else if (base == 10) {
+            checkFormat = "[0-9]+";
+        } else {
+            checkFormat = "[0-9A-F]+";
+        }
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim().toUpperCase();
+            if (input.isEmpty()) {
+                System.err.println("Input not be empty! Enter again. ");
+            }
+            if (input.matches(checkFormat)) {
+                return input;
+            }
+            System.err.println("Input Invalid for base" + base + "! Enter again.");
+        }
+    }
+
+    public static int checkInputChoice(String message) {
         while (true) {
             try {
-                int result = Integer.parseInt(scanner.nextLine().trim());
-                if (result < min || result > max) {
-                    throw new NumberFormatException();
+                System.out.print(message);
+                String input = scanner.nextLine().trim();
+                int number = Integer.parseInt(input);
 
+                if (number == 2 || number == 10 || number == 16) {
+                    return number;
+                } else {
+                    System.err.println("Input must be number 2, 10 , 16. Enter again.");
                 }
-                return result;
             } catch (NumberFormatException e) {
-                System.err.println("Please input number in rage [" + min + ", " + max + "]");
-                System.out.print("Enter again: ");
+                System.out.println("Invalid format! Please enter again.");
             }
-        }
-    }
-    //check user input number binary
-    public static String checkInputBinary() {
-        System.out.print("Enter number binary: ");
-        String result;
-        //loop until user input correct
-        while (true) {
-            result = scanner.nextLine().trim();
-            if (result.matches(BINARY_VALID)) {
-                return result;
-            }
-            System.err.println("Must be enter 0 or 1");
-            System.out.print("Enter again: ");
         }
     }
 
-    //    //check user input number binary
-    public static String checkInputDecimal() {
-        System.out.print("Enter number decimal: ");
-        String result;
-        //loop until user input correct
-        while (true) {
-            result = scanner.nextLine().trim();
-            if (result.matches(DECIMAL_VALID)) {
-                return result;
-            }
-            System.err.println("Must be enter 0-9");
-            System.out.print("Enter again: ");
-        }
-    }
-
-    //    //check user input number binary
-    public static String checkInputHexaDecimal() {
-        System.out.print("Enter number hexadecimal: ");
-        String result;
-        //loop until user input correct
-        while (true) {
-            result = scanner.nextLine().trim();
-            if (result.matches(HEXADECIMAL_VALID)) {
-                return result;
-            }
-            System.err.println("Must be enter 0-9 A-F");
-            System.out.print("Enter again: ");
-        }
-    }
-        }
+}
