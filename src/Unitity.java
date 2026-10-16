@@ -3,10 +3,21 @@ import java.util.Scanner;
 
 public class Unitity {
 
+    /**
+     * Create scanner with field private.
+     */
     private final static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Method to check valid input user.
+     * @param message is message require user enter input.
+     * @param base is base to convert.
+     * @return input.
+     */
     public static String checkUserInputValue(String message, int base) {
         String checkFormat;
+        
+        //Check valid format of bases.
         if (base == 2) {
             checkFormat = "[01]+";
         } else if (base == 10) {
@@ -14,6 +25,8 @@ public class Unitity {
         } else {
             checkFormat = "[0-9A-F]+";
         }
+        
+        //Check valid format of bases.
         while (true) {
             System.out.print(message);
             String input = scanner.nextLine().trim().toUpperCase();
@@ -27,6 +40,11 @@ public class Unitity {
         }
     }
 
+    /**
+     * Method to check input user choice base.
+     * @param message is message require user enter input. 
+     * @return  number.
+     */
     public static int checkInputChoice(String message) {
         while (true) {
             try {
